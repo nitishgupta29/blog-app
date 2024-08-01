@@ -3,6 +3,7 @@ package com.nitish.blog.controllers;
 import com.nitish.blog.payloads.ApiResponse;
 import com.nitish.blog.payloads.CategoryDto;
 import com.nitish.blog.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,14 @@ public class CategoryController {
 
     // create
     @PostMapping("/")
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto){
+    public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryDto categoryDto){
         CategoryDto createCategory=this.categoryService.createCategory(categoryDto);
         return new ResponseEntity<CategoryDto>(createCategory, HttpStatus.CREATED);
     }
 
     // update
     @PutMapping("/{catId}")
-    public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto, @PathVariable Integer catId){
+    public ResponseEntity<CategoryDto> updateCategory(@Valid @RequestBody CategoryDto categoryDto, @PathVariable Integer catId){
         CategoryDto updatedCategory = this.categoryService.updateCategory(categoryDto,catId) ;
         return new ResponseEntity<CategoryDto> (updatedCategory, HttpStatus.OK) ;
     }
